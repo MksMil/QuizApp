@@ -16,9 +16,9 @@ class QuestionViewController: UIViewController{
    
     private var question = ""
     private var options = [String]()
-    private var selection: ((String) -> Void)? = nil
+    private var selection: (([String]) -> Void)? = nil
     
-    convenience init(question: String, options: [String], selection: @escaping (String)->Void){
+    convenience init(question: String, options: [String], selection: @escaping ([String])->Void){
         self.init()
         self.question = question
         self.options = options
@@ -32,6 +32,7 @@ class QuestionViewController: UIViewController{
     }
 }
 
+// MARK: - UITableViewDataSource
 extension QuestionViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         options.count
@@ -52,8 +53,19 @@ extension QuestionViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - UITableViewDlegate
 extension QuestionViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.selection?(options[indexPath.row])
+        selection?(select(in: tableView))
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        if tableView.allowsMultipleSelection { selection?(select(in: tableView)) }
+    }
+    
+    private func select(in tableView: UITableView) -> [String]{
+        guard let result = tableView.indexPathsForSelectedRows else { return [String]() }
+        return result.map { options[$0.row] }
+
     }
 }
