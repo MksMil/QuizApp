@@ -1,25 +1,20 @@
-//
-//  Flow.swift
-//  QuizEngine
-//
-//  Created by Миляев Максим on 23.03.2023.
-//
-
 import Foundation
 
 protocol Router {
-    typealias AnswerCallback = (String) -> Void
-    func routeTo(question: String, answerCallback: @escaping AnswerCallback)
-    func routeTo(result: [String: String])
+    associatedtype Question: Hashable
+    associatedtype Answer
+
+    func routeTo(question: Question, answerCallback: @escaping (Answer) -> Void)
+    func routeTo(result: [Question: Answer])
     
 }
 
-class Flow {
-    private let router: Router
-    private let questions: [String]
-    private var results: [String:String] = [:]
+class Flow<Qustion: Hashable, Answer, R: Router> where R.Question == Qustion, R.Answer == Answer {
+    private let router: R
+    private let questions: [Qustion]
+    private var results: [Qustion:Answer] = [:]
     
-    init( questions: [String],router: Router) {
+    init( questions: [Qustion],router: R) {
         self.questions = questions
         self.router = router
     }
@@ -32,11 +27,11 @@ class Flow {
         }
     }
     
-    private func nextCallback(from question: String) -> Router.AnswerCallback {
+    private func nextCallback(from question: Qustion) -> (Answer) -> Void {
         return { [weak self] in self?.routeNext(question, $0) }
     }
     
-    private func routeNext(_ question: String,_ answer: String){
+    private func routeNext(_ question: Qustion,_ answer: Answer){
         results[question] = answer
         if let currentIndex = questions.firstIndex(of: question){
             if currentIndex + 1 < questions.count{

@@ -1,10 +1,3 @@
-//
-//  FlowTest.swift
-//  QuizEngineTests
-//
-//  Created by Миляев Максим on 23.03.2023.
-//
-
 import Foundation
 import XCTest
 @testable import QuizEngine
@@ -92,16 +85,16 @@ class FlowTest: XCTestCase {
     }
     
     // MARK: - Helper
-    func makeSUT(questions: [String]) -> Flow{
+    func makeSUT(questions: [String]) -> Flow<String,String,RouterSpy>{
         return Flow(questions: questions, router: router)
     }
     
     class RouterSpy: Router{
         var routedQuestions: [String] = []
-        var answerCallback: Router.AnswerCallback = { _ in }
+        var answerCallback: (String) -> Void = { _ in }
         var routedResults: [String:String]? = nil
         
-        func routeTo(question: String, answerCallback: @escaping Router.AnswerCallback){
+        func routeTo(question: String, answerCallback: @escaping (String)->Void){
             routedQuestions.append(question)
             self.answerCallback = answerCallback
         }
