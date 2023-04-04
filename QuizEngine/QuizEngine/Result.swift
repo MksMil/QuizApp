@@ -1,6 +1,6 @@
 import Foundation
 
-struct Result <Question: Hashable, Answer>{
-    let answers: [Question: Answer]
-    var score: Int = 0
+public struct Result <Question: Hashable, Answer>{
+   public let answers: [Question: Answer]
+   public var score: Int = 0
 }
