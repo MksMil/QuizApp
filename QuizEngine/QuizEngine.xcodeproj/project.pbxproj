@@ -7,11 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		29A0184629DC2C3500CA6283 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A0184529DC2C3500CA6283 /* Router.swift */; };
-		29A0184829DC2C5800CA6283 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A0184729DC2C5800CA6283 /* Result.swift */; };
-		29A0184A29DC334800CA6283 /* GameTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A0184929DC334800CA6283 /* GameTest.swift */; };
-		29A0184C29DC33B500CA6283 /* RouterSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A0184B29DC33B500CA6283 /* RouterSpy.swift */; };
-		29A0184E29DC347300CA6283 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A0184D29DC347300CA6283 /* Game.swift */; };
 		29A0185E29DD242C00CA6283 /* QuizEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A0185429DD242B00CA6283 /* QuizEngine.framework */; };
 		29A0186C29DD270400CA6283 /* GameTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A0184929DC334800CA6283 /* GameTest.swift */; };
 		29A0186D29DD273500CA6283 /* FlowTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7967A29CC413900AE56AF /* FlowTest.swift */; };
@@ -22,8 +17,6 @@
 		29A0187229DD274700CA6283 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A0184529DC2C3500CA6283 /* Router.swift */; };
 		29E7966429CC3E6400AE56AF /* QuizEngine.docc in Sources */ = {isa = PBXBuildFile; fileRef = 29E7966329CC3E6400AE56AF /* QuizEngine.docc */; };
 		29E7966A29CC3E6400AE56AF /* QuizEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29E7965F29CC3E6400AE56AF /* QuizEngine.framework */; };
-		29E7967B29CC413900AE56AF /* FlowTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7967A29CC413900AE56AF /* FlowTest.swift */; };
-		29E7967D29CC4C5C00AE56AF /* Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7967C29CC4C5C00AE56AF /* Flow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -332,10 +325,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				29E7966429CC3E6400AE56AF /* QuizEngine.docc in Sources */,
-				29A0184E29DC347300CA6283 /* Game.swift in Sources */,
-				29A0184629DC2C3500CA6283 /* Router.swift in Sources */,
-				29A0184829DC2C5800CA6283 /* Result.swift in Sources */,
-				29E7967D29CC4C5C00AE56AF /* Flow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,9 +332,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				29E7967B29CC413900AE56AF /* FlowTest.swift in Sources */,
-				29A0184A29DC334800CA6283 /* GameTest.swift in Sources */,
-				29A0184C29DC33B500CA6283 /* RouterSpy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -609,6 +595,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = macosx;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -639,6 +628,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = macosx;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -647,7 +639,6 @@
 		29E7967729CC3E6400AE56AF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -671,7 +662,6 @@
 		29E7967829CC3E6400AE56AF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
