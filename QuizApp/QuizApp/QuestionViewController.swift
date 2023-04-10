@@ -1,10 +1,3 @@
-//
-//  QuestionViewController.swift
-//  QuizApp
-//
-//  Created by Миляев Максим on 24.03.2023.
-//
-
 import UIKit
 
 class QuestionViewController: UIViewController{
