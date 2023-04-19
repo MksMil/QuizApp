@@ -3,9 +3,11 @@ import QuizEngine
 
 class iOSViewControllerFactory: ViewControllerFactory{
     
-    var options: [Question<String>: [String]]
+    private let questions: [Question<String>]
+    private let options: [Question<String>: [String]]
     
-    init(options: [Question<String> : [String]]) {
+    init(questions: [Question<String>],options: [Question<String> : [String]]) {
+        self.questions = questions
         self.options = options
     }
     
@@ -13,9 +15,11 @@ class iOSViewControllerFactory: ViewControllerFactory{
                                 answerCallback: @escaping ([String]) -> Void) -> UIViewController {
         guard let options = self.options[question] else {
             fatalError("couldnt find options for question \(question)")}
-        return makeQuestionViewController(question: question,
+        let controller = makeQuestionViewController(question: question,
                                           options: options,
                                           answerCallback: answerCallback)
+        controller.title = QuestionPresenter(questions: questions, question: question).title
+        return controller
     }
     
     func resultViewController(for result: QuizEngine.Result<Question<String>, [String]>) -> UIViewController {
