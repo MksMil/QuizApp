@@ -11,7 +11,9 @@ class QuestionViewController: UIViewController{
     private(set) var options = [String]()
     private var selection: (([String]) -> Void)? = nil
     
-    convenience init(question: String, options: [String], selection: @escaping ([String])->Void){
+    convenience init(question: String,
+                     options: [String],
+                     selection: @escaping ([String])->Void){
         self.init()
         self.question = question
         self.options = options
@@ -27,11 +29,13 @@ class QuestionViewController: UIViewController{
 
 // MARK: - UITableViewDataSource
 extension QuestionViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView,
+                   numberOfRowsInSection section: Int) -> Int {
         options.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView,
+                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = dequeueCell(at: tableView)
         cell.textLabel?.text = options[indexPath.row]
 
@@ -42,23 +46,28 @@ extension QuestionViewController: UITableViewDataSource {
         if let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier){
             return cell
         }
-        return UITableViewCell(style: .default, reuseIdentifier: reuseIdentifier)
+        return UITableViewCell(style: .default,
+                               reuseIdentifier: reuseIdentifier)
     }
 }
 
 // MARK: - UITableViewDlegate
 extension QuestionViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView,
+                   didSelectRowAt indexPath: IndexPath) {
         selection?(select(in: tableView))
     }
     
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        if tableView.allowsMultipleSelection { selection?(select(in: tableView)) }
+    func tableView(_ tableView: UITableView,
+                   didDeselectRowAt indexPath: IndexPath) {
+        if tableView.allowsMultipleSelection {
+            selection?(select(in: tableView))
+        }
     }
     
     private func select(in tableView: UITableView) -> [String]{
-        guard let result = tableView.indexPathsForSelectedRows else { return [String]() }
+        guard let result = tableView.indexPathsForSelectedRows
+        else { return [String]() }
         return result.map { options[$0.row] }
-
     }
 }

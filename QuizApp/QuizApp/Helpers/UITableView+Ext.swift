@@ -3,7 +3,8 @@ import UIKit
 extension UITableView{
     func registerCell(_ type: UITableViewCell.Type) {
         let className = String(describing: type)
-        register(UINib(nibName: className, bundle: nil),
+        register(UINib(nibName: className,
+                       bundle: nil),
                  forCellReuseIdentifier: className)
     }
     

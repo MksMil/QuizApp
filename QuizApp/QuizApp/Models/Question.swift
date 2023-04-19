@@ -13,7 +13,8 @@ enum Question<T: Hashable>:Hashable{
         }
     }
     
-    static func == (lhs:Question<T>, rhs:Question<T>)->Bool{
+    static func == (lhs:Question<T>,
+                    rhs:Question<T>)->Bool{
         switch (lhs, rhs){
         case (.singleSelection(let a), .singleSelection(let b)):
             return a == b
