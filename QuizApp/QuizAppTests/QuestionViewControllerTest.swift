@@ -82,11 +82,15 @@ class QuestionViewControllerTest: XCTestCase{
     
     func makeSUT(question: String = "",
                  options: [String] = [],
-                 selection: (@escaping([String]) -> Void) = { _ in }) -> QuestionViewController{
+                 selection: (@escaping([String]) -> Void) = { _ in },
+                 allowMultipleSelection: Bool = false) -> QuestionViewController{
         let question = Question.singleSelection(question)
-        let factory = iOSViewControllerFactory(questions:[question] ,options: [question: options])
-        let sut = factory.questionViewController(question: question, answerCallback: selection) as! QuestionViewController
+        let factory = iOSViewControllerFactory(questions:[question],
+                                               options: [question: options],correctAnswers: [:])
+        let sut = factory.questionViewController(question: question,
+                                                 answerCallback: selection) as! QuestionViewController
         _ = sut.view
+        sut.tableView.allowsMultipleSelection = allowMultipleSelection
         return sut
     }
 }

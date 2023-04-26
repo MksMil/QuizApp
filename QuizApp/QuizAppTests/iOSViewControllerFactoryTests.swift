@@ -1,5 +1,6 @@
 import UIKit
 import XCTest
+import QuizEngine
 @testable import QuizApp
 
 class iOSViewControllerFactoryTests: XCTestCase{
@@ -9,6 +10,7 @@ class iOSViewControllerFactoryTests: XCTestCase{
     
     let options = ["A1","A2"]
     
+//--- QuestionViewController
     func test_questionViewController_createsControllerWithTitle(){
         let presenter = QuestionPresenter(questions: [singleAnswerQuestion],
                                           question: singleAnswerQuestion)
@@ -53,12 +55,62 @@ class iOSViewControllerFactoryTests: XCTestCase{
         XCTAssertTrue(controller.tableView.allowsMultipleSelection)
     }
     
+    func test_questionViewcontroller_singleSelection_createsControllerWithSungleSelection(){
+        let controller = makeQuestionController(question: singleAnswerQuestion)
+        _ = controller.view
+        
+        XCTAssertFalse(controller.tableView.allowsMultipleSelection)
+    }
+    
+    func test_questionViewcontroller_multipleSelection_createsControllerWithSungleSelection(){
+        let controller = makeQuestionController(question: multipleAnswerQuestion)
+        _ = controller.view
+        
+        XCTAssertTrue(controller.tableView.allowsMultipleSelection)
+    }
+//--- ResultViewController
+    func test_resuultViewCpontroller_createsController(){
+        let results = makeResults()
+        XCTAssertNotNil(results.controller)
+        XCTAssertEqual(results.controller.summary,
+                       results.presenter.summary)
+    }
+    
+    func test_resuultViewCpontroller_createsControllerWithPresentableAnswers(){
+        let results = makeResults()
+        XCTAssertNotNil(results.controller)
+        XCTAssertEqual(results.controller.answers.count,
+                       results.presenter.presentableAnswers.count)
+    }
+    
     // MARK: - Helper
     
-    func makeSUT(options: [Question<String>: [String]]) -> iOSViewControllerFactory{
-        return iOSViewControllerFactory(questions: [singleAnswerQuestion, multipleAnswerQuestion] ,options: options)
+    func makeSUT(options: [Question<String>: [String]], correctAnswers:[Question<String>: [String]] = [:] ) -> iOSViewControllerFactory{
+        return iOSViewControllerFactory(questions: [singleAnswerQuestion, multipleAnswerQuestion] ,
+                                        options: options,
+                                        correctAnswers: correctAnswers)
     }
     func makeQuestionController(question: Question<String> = Question.singleSelection("")) -> QuestionViewController{
-        return makeSUT(options: [question: options]).questionViewController(question:question ,answerCallback: {_ in }) as! QuestionViewController
+        return makeSUT(options: [question: options])
+            .questionViewController(question:question,
+                                    answerCallback: {_ in })
+        as! QuestionViewController
+    }
+    
+    func makeResults() -> (controller: ResultViewController, presenter: ResultPresenter){
+        let userAnswers = [singleAnswerQuestion: ["A1"],
+                         multipleAnswerQuestion: ["A1", "A2"]]
+        let results = Result(answers: userAnswers,
+                             score: 2)
+        let questions = [singleAnswerQuestion, multipleAnswerQuestion]
+        let correctAnswers = [singleAnswerQuestion: ["A1"],
+                            multipleAnswerQuestion: ["A1", "A2"]]
+        let sut = makeSUT(options: [:],
+                          correctAnswers: correctAnswers)
+        let presenter = ResultPresenter(result: results,
+                                        questions: questions,
+                                        correctAnswers: correctAnswers)
+        let controller = sut.resultViewController(for: results) as! ResultViewController
+        return (controller,presenter)
     }
 }
