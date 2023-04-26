@@ -125,7 +125,7 @@ class ViewControllerFactoryStub: ViewControllerFactory{
         stubbedCallbacks[question] = answerCallback
         return stubbedQuestions[question] ?? UIViewController()
     }
-    func resultViewController(for result: Result<QuizApp.Question<String>, [String]>) -> UIViewController {
+    func resultViewController(for result: Result<Question<String>, [String]>) -> UIViewController {
         return stubbedResults[result]!
     }
 }

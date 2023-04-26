@@ -1,10 +1,10 @@
 import Foundation
 
-enum Question<T: Hashable>:Hashable{
+public enum Question<T: Hashable>:Hashable{
     case singleSelection(T)
     case multipleSelection(T)
     
-    func hash(into hasher: inout Hasher) {
+    public  func hash(into hasher: inout Hasher) {
         switch self{
         case .singleSelection(let a):
             hasher.combine(a)
@@ -13,8 +13,8 @@ enum Question<T: Hashable>:Hashable{
         }
     }
     
-    static func == (lhs:Question<T>,
-                    rhs:Question<T>)->Bool{
+    public static func == (lhs:Question<T>,
+                           rhs:Question<T>)->Bool{
         switch (lhs, rhs){
         case (.singleSelection(let a), .singleSelection(let b)):
             return a == b
